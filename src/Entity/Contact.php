@@ -26,6 +26,11 @@ class Contact
      */
     private $phone;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default"=true})
+     */
+    private $isPublic = true;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +56,18 @@ class Contact
     public function setPhone(string $phone): self
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getIsPublic(): ?bool
+    {
+        return $this->isPublic;
+    }
+
+    public function setIsPublic(bool $isPublic): self
+    {
+        $this->isPublic = $isPublic;
 
         return $this;
     }

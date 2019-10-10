@@ -4,10 +4,20 @@
 
 {% block body %}
     <h1>Contact!</h1>
-    {% for contact in contacts %}
-        {{ contact.phone }}
-        <br>
-        {{ contact.email }}
-        <hr>
-    {% endfor %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Номер</th>
+                <th>Емэил</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for contact in contacts %}
+            <tr>
+                <th>{{ contact.phone }}</th>
+                <th>{{ contact.email }}</th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

@@ -23,7 +23,7 @@ class SiteController extends AbstractController
      */
     public function contacts(ContactRepository $contactRepository)
     {
-        $contacts = $contactRepository->findAll();
+        $contacts = $contactRepository->findBy(['isPublic' => true]);
 
         return $this->render('site/contacts.html.twig', [
             'contacts' => $contacts,
