@@ -1,0 +1,34 @@
+FROM php:7.3-fpm
+
+RUN apt-get update
+RUN apt-get install -y unzip libpq-dev libicu-dev libzip-dev wget cron && docker-php-ext-install pgsql pdo_pgsql opcache zip ctype
+RUN docker-php-ext-configure intl
+RUN docker-php-ext-install intl
+RUN docker-php-ext-install bcmath
+RUN wget https://getcomposer.org/installer -O - -q | php -- --install-dir=/bin --filename=composer --quiet
+RUN apt-get install -y --no-install-recommends \
+    libfreetype6-dev \
+    libjpeg-dev \
+    libpng-dev \
+    libxpm-dev \
+    libvpx-dev \
+&& docker-php-ext-configure gd \
+    --with-freetype-dir=/usr/lib/x86_64-linux-gnu/ \
+    --with-jpeg-dir=/usr/lib/x86_64-linux-gnu/ \
+    --with-xpm-dir=/usr/lib/x86_64-linux-gnu/ \
+    --with-vpx-dir=/usr/lib/x86_64-linux-gnu/ \
+&& docker-php-ext-install gd
+RUN apt-get update && apt-get install -y \
+    libmagickwand-dev --no-install-recommends \
+    && pecl install imagick \
+	&& docker-php-ext-enable imagick
+RUN docker-php-ext-install sockets
+RUN apt-get update && apt-get install -y \
+    zlib1g-dev \
+    libzip-dev
+RUN docker-php-ext-install zip
+
+ADD ./php/default.ini /usr/local/etc/php/conf.d/default.ini
+RUN apt-get install -y zip
+
+WORKDIR /var/www
