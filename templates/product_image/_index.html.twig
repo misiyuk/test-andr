@@ -1,0 +1,29 @@
+<h1>ProductImage index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Url</th>
+            <th>actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for product_image in product_images %}
+        <tr>
+            <td>{{ product_image.id }}</td>
+            <td><img src="{{ product_image.url }}"></td>
+            <td>
+                <a href="{{ path('product_image_show', {'id': product_image.id}) }}">show</a>
+                <a href="{{ path('product_image_edit', {'id': product_image.id}) }}">edit</a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="3">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ path('product_image_new', {'id': product.id}) }}">Create new</a>
